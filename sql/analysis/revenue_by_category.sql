@@ -1,18 +1,20 @@
-/*
-Business Question:
-Which product categories generate the most revenue?
-Is revenue diversified or concentrated?
-*/
+-- =============================================
+-- REVENUE BY CATEGORY
+-- Uses fact_orders (filtered delivered)
+-- Joins to items and products for category
+-- =============================================
 
 SELECT
     p.product_category_name,
-    SUM(f.revenue) AS total_revenue,
-    COUNT(DISTINCT f.order_id) AS total_orders,
-    ROUND(AVG(f.revenue), 2) AS avg_item_value
+    ROUND(SUM(oi.price), 2) AS total_revenue,
+    COUNT(DISTINCT fo.order_id) AS total_orders
+FROM fact_orders fo
 
-FROM fact_orders f
-JOIN dim_products p
-    ON f.product_key = p.product_key
+JOIN stg_order_items oi
+    ON fo.order_id = oi.order_id
+
+JOIN stg_products p
+    ON oi.product_id = p.product_id
 
 GROUP BY p.product_category_name
 ORDER BY total_revenue DESC;

@@ -7,8 +7,8 @@ Do we depend on a small group of high-value customers?
 SELECT
     c.customer_key,
     COUNT(DISTINCT f.order_id) AS total_orders,
-    SUM(f.revenue) AS lifetime_revenue,
-    ROUND(AVG(f.revenue), 2) AS avg_order_value
+    SUM(f.order_value) AS lifetime_revenue,
+    ROUND(AVG(f.order_value), 2) AS avg_order_value
 
 FROM fact_orders f
 JOIN dim_customers c

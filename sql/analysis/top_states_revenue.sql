@@ -5,7 +5,7 @@ Which states drive the most revenue?
 
 SELECT
     c.customer_state,
-    SUM(f.revenue) AS total_revenue,
+    SUM(f.order_value) AS total_revenue,
     COUNT(DISTINCT f.order_id) AS total_orders
 
 FROM fact_orders f
